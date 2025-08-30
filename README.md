@@ -1,30 +1,30 @@
-# Translation Chat App
+# How Do You Say?
 
-A real-time translation chat application built with SvelteKit, featuring streaming responses and support for 22 languages. Powered by Cohere's translation API with a clean, responsive interface.
+A real-time translation chat application built with SvelteKit, featuring streaming responses and support for 23 languages. Powered by Cohere's translation API with a clean, responsive interface.
 
 ## Features
 
-- 🌍 **22 Language Support**: Japanese, French, German, Spanish, Italian, Portuguese, and more
+- 🌍 **23 Language Support**: Japanese, French, German, Spanish, Italian, Portuguese, and more
 - 💬 **Real-time Chat Interface**: Texting app-style with auto-scroll to newest messages
-- ⚡ **Streaming Responses**: Live translation updates as they're generated
 - 💾 **Persistent History**: Chat messages stored in localStorage
-- 🎨 **Responsive Design**: Stone/amber warm color palette with mobile-first approach
-- ♿ **Accessible**: Full keyboard navigation and screen reader support
 
-## Technology Stack
+## Limitations
+- 😅 **Phonetic Mixup**: Languages that use the Latin alphabet often generate phonetics of the English version of the text.
+
+## Stack
 
 - **SvelteKit** with Svelte 5 (runes syntax)
 - **TypeScript** for type safety
 - **Tailwind CSS v4** with forms and typography plugins
 - **Cloudflare Pages** deployment ready
-- **Cohere API v2** with `command-a-translate-08-2025` model
+- **Cohere APIv2** with `command-a-translate-08-2025` model
 
 ## Development Setup
 
 ### Prerequisites
 
 - Node.js 18+ or pnpm
-- Cohere API key (sign up at [cohere.com](https://cohere.com))
+- Cohere API key (sign up at [cohere.com](https://dashboard.cohere.com))
 
 ### Installation
 
@@ -122,68 +122,6 @@ pages_build_output_dir = ".svelte-kit/cloudflare"
 
 ### Option 2: Integration with Existing Website
 
-Add this translation app as a page/section within an existing Cloudflare-hosted website.
-
-#### Method A: Subdirectory Integration
-
-If your existing site supports it, deploy the translation app to a subdirectory:
-
-1. **Configure Route Prefix**:
-   
-   Update `svelte.config.js`:
-   ```javascript
-   import adapter from '@sveltejs/adapter-cloudflare';
-   import { vitePreprocess } from '@sveltejs/vite-plugin-svelte';
-
-   const config = {
-     preprocess: vitePreprocess(),
-     kit: {
-       adapter: adapter(),
-       paths: {
-         base: '/translate'  // App will be available at yourdomain.com/translate
-       }
-     }
-   };
-
-   export default config;
-   ```
-
-2. **Deploy as Separate Pages Project**:
-   - Follow the standalone deployment steps above
-   - Configure your main site to proxy `/translate/*` requests to this Pages deployment
-
-3. **Nginx/Cloudflare Worker Proxy Example**:
-   ```javascript
-   // Cloudflare Worker for proxying
-   export default {
-     async fetch(request) {
-       const url = new URL(request.url);
-       if (url.pathname.startsWith('/translate')) {
-         return fetch(`https://your-translation-app.pages.dev${url.pathname}${url.search}`);
-       }
-       // Handle other routes...
-       return fetch(request);
-     }
-   }
-   ```
-
-#### Method B: Iframe Integration
-
-For simpler integration without proxying:
-
-```html
-<!-- Add to your existing website -->
-<iframe 
-  src="https://your-translation-app.pages.dev" 
-  width="100%" 
-  height="600px"
-  frameborder="0"
-  title="Translation Chat">
-</iframe>
-```
-
-#### Method C: Build Integration
-
 For more advanced integration, you can build this as part of your existing SvelteKit site:
 
 1. **Copy Source Files**:
@@ -197,7 +135,6 @@ For more advanced integration, you can build this as part of your existing Svelt
    ```
 
 3. **Update Configuration**:
-   - Add Tailwind plugins to your existing config
    - Ensure environment variables are configured
 
 ## Environment Variables
@@ -206,53 +143,6 @@ For more advanced integration, you can build this as part of your existing Svelt
 |----------|----------|-------------|
 | `COHERE_API_KEY` | Yes | Your Cohere API key for translation services |
 
-## Styling Integration
 
-If integrating with an existing site, you may want to:
 
-1. **Override Colors**: Modify the Tailwind color palette in your CSS
-2. **Consistent Typography**: Ensure font families match your site
-3. **Custom CSS**: Add custom styles for seamless integration
-
-Example CSS overrides:
-```css
-/* Custom styles for integration */
-.translation-chat {
-  --primary-color: your-brand-color;
-  --background-color: your-background-color;
-}
-```
-
-## Performance Optimization
-
-- **Lazy Loading**: The app loads translation API only when needed
-- **LocalStorage**: Chat history persists without server storage
-- **Streaming**: Responses render progressively for better UX
-- **CDN**: Cloudflare's global CDN ensures fast loading worldwide
-
-## Troubleshooting
-
-### Common Issues
-
-1. **API Key Not Found**:
-   - Verify `COHERE_API_KEY` is set in Cloudflare environment variables
-   - Check that the variable is applied to the correct environment (production/preview)
-
-2. **Build Failures**:
-   - Ensure Node.js version is 18+
-   - Check that all dependencies are installed
-   - Verify build command matches your package manager (npm/pnpm)
-
-3. **Routing Issues with Integration**:
-   - Check that base path configuration matches your proxy setup
-   - Ensure no route conflicts with existing site
-
-### Support
-
-- Check the [Cloudflare Pages documentation](https://developers.cloudflare.com/pages/)
-- Review [SvelteKit Cloudflare adapter docs](https://kit.svelte.dev/docs/adapter-cloudflare)
-- For Cohere API issues, see [Cohere documentation](https://docs.cohere.com/)
-
-## License
-
-[Add your license information here]
+Apache 2.0 License
