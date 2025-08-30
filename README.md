@@ -2,6 +2,8 @@
 
 A real-time translation chat application built with SvelteKit, featuring streaming responses and support for 23 languages. Powered by Cohere's translation API with a clean, responsive interface.
 
+Check out the [demo](https://www.rshvr.com/how-do-you-say)
+
 ## Features
 
 - 🌍 **23 Language Support**: Japanese, French, German, Spanish, Italian, Portuguese, and more
